@@ -1,0 +1,19 @@
+services:
+  library-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: library-management-api
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - DB_URL=jdbc:h2:file:/app/data/librarydb;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1
+      - H2_CONSOLE_ENABLED=false
+    volumes:
+      - library-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  library-data:
+    name: library_management_data
